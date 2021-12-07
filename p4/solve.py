@@ -23,26 +23,59 @@ def has_bingo(board):
             return True
 
 
-with open("input.txt", "r") as f:
-    numbers = f.readline().strip().split(",")
-    boards = []
-    for line in f:
-        if not line.strip():
-            boards.append([])
-            continue
-        boards[-1] += [number for number in line.strip().split(" ") if number]
+def p1():
+    with open("input.txt", "r") as f:
+        numbers = f.readline().strip().split(",")
+        boards = []
+        for line in f:
+            if not line.strip():
+                boards.append([])
+                continue
+            boards[-1] += [number for number in line.strip().split(" ") if number]
 
-    for number in numbers:
-        bingo = None
-        for board in boards:
-            try:
-                idx = board.index(number)
-                board[idx] = "x"
-            except ValueError:
-                pass
-            if has_bingo(board):
-                bingo = sum([int(num) for num in board if num != "x"]) * int(number)
+        for number in numbers:
+            bingo = None
+            for board in boards:
+                try:
+                    idx = board.index(number)
+                    board[idx] = "x"
+                except ValueError:
+                    pass
+                if has_bingo(board):
+                    bingo = sum([int(num) for num in board if num != "x"]) * int(number)
+            if bingo:
+                print(bingo)
                 break
+
+
+def p2():
+    with open("input.txt", "r") as f:
+        numbers = f.readline().strip().split(",")
+        boards = []
+        for line in f:
+            if not line.strip():
+                boards.append([])
+                continue
+            boards[-1] += [number for number in line.strip().split(" ") if number]
+
+        bingo = None
+        for number in numbers:
+            new_boards = []
+            for board in boards:
+                try:
+                    idx = board.index(number)
+                    board[idx] = "x"
+                except ValueError:
+                    pass
+                if has_bingo(board):
+                    bingo = sum([int(num) for num in board if num != "x"]) * int(number)
+                else:
+                    new_boards.append(board)
+            boards = new_boards
+
         if bingo:
             print(bingo)
-            break
+
+
+if __name__ == "__main__":
+    p2()
