@@ -161,7 +161,7 @@ def get_numbers_next_to_gears(string_matrix):
 
 
 if __name__ == "__main__":
-    with open("test.txt", "r") as f:
+    with open("input.txt", "r") as f:
         string_matrix = f.read()
         string_matrix = string_matrix.strip()
     print(get_numbers_next_to_gears(string_matrix))
